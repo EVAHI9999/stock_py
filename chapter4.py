@@ -150,7 +150,7 @@ print(df_access.iloc[0:2])
 print(df_access.iloc[[0,2],[0,1]])
 
 #采用混合标签和位置的方式访问元素 从’Open‘列索引中获取第0个和第2个元素
-print(df_access.ix[[0, 2], ['Open']])
+#print(df_access.ix[[0, 2], ['Open']])
 
 #
 print(df_access.index[[0, 2]])
@@ -167,3 +167,41 @@ print(df_access.index.get_loc('2019-01-12'))
 print(df_access.Open > df_access.Open.mean())
 
 print(df_access[df_access.Open > df_access.Open.mean()])
+
+print(df_access.loc[df_access.Open > df_access.Open.mean(), 'Close'])
+
+#4.4 时间序列的生成和转换
+
+#4.4.1 用datatime生成时间序列
+
+#先导入datetime模块，这里我们指定导入其中的date、time、datetime、timedelta这几个接口
+from datetime import date, time, datetime, timedelta
+
+#date.resolution:date对象表示日期的最小单位
+print(f'date.resolution: {date.resolution}')
+#time.resolution:time对象表示时间的最小单位
+print(f'time.resolution: {time.resolution}')
+#datetime.resolution:datetime对象表示时间的最小单位
+print(f'dateime.resolution: {datetime.resolution}')
+
+#date.max、date.min: date对象所能表示的最大、最小日期范围
+print(f'date.max: {date.max} and date.min: {date.min}')
+#time.max、time.min: time对象所能表示的最大、最小时间范围
+print(f'time.max: {time.max} and time.min: {time.min}')
+#datetime.max、datetime.min: datetime对象所能表示的最大、最小时间范围
+print(f'datetime.max: {datetime.max} and datetime.min: {datetime.min}')
+
+#构造datetime实例对象
+#datetime(year, month, day[ , hour[ , minute[ , second[ , microsecond[ , tzinfo]]]]])
+datetime_obj = datetime(2016, 10, 26, 10, 23, 15, 1)
+print(f'datetime: {datetime_obj}')
+
+#replace用参数指定代替原有对象中的属性生成新的datetime时间对象
+re_datetime_obj = datetime_obj.replace(day=27, hour=20)
+print(f'datetime: {re_datetime_obj}')
+#.isoformat(): 返回型如“YYYY-MM-DD HH:MM:SS"格式的字符串时间
+print(f'datetime.isoformat(): {datetime_obj.isoformat()}')
+#.strftime(fmt):format自定义格式化时间字
+print(f'strftime():{datetime_obj.strftime("%Y-%m-%d %X")}')
+
+
