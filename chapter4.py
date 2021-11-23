@@ -204,4 +204,36 @@ print(f'datetime.isoformat(): {datetime_obj.isoformat()}')
 #.strftime(fmt):format自定义格式化时间字
 print(f'strftime():{datetime_obj.strftime("%Y-%m-%d %X")}')
 
+#datetime接口也提供了很好用的函数
+print(f'datetime.strptime():{datetime.strptime("2016-10-26", "%Y-%m-%d")}')
+print(f'fromtimestamp():{datetime.fromtimestamp(1429417200.0)}')
+print(f'utcfromtimestamp():{datetime.utcfromtimestamp(1429417200.0)}')
+print(f'datetime.now():{datetime.now()}')
 
+#将两个datetime对象直接相减能获得一个timedelta对象，它表示两个日期或时间之间的间隔
+delta_obj = datetime.strptime("2019-10-18 04:20:00", "%Y-%m-%d %X") - datetime.strptime("2019-10-01 04:20:00", "%Y-%m-%d %X")
+print(type(delta_obj), delta_obj)
+print(delta_obj.days, delta_obj.total_seconds())
+
+dt = datetime.now()
+#明天后1小时
+dt1 = dt + timedelta(days=1, hours=1)
+#昨天
+dt2 = dt + timedelta(days=-1)
+#昨天
+dt3 = dt - timedelta(days=1)
+print(f"{dt1}\n{dt2}\n{dt3}\n")
+
+#4.4.2用Pandas生成时间序列
+
+#这里列举了pd.Timestamp()的3种方式
+#给定年、月、日、时、分、秒参数值
+ts = pd.Timestamp(2019, 1, 1, 2, 3, 4)
+print(f'pd.Timestamp()-1: {ts}')
+#通过datetime对象转换为时间戳
+ts = pd.Timestamp(datetime(2019, 1, 1, hour=2, minute=3, second=4))
+print(f'pd.Timestamp()-2: {ts}')
+#通过时间格式的字符串转化为时间戳
+ts = pd.Timestamp("2019-1-1 2:3:4")
+print(f'pd.Timestamp()-3: {ts}')
+print(f'pd.Timestamp()-type: {type(ts)}')
