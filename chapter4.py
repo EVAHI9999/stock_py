@@ -226,6 +226,8 @@ print(f"{dt1}\n{dt2}\n{dt3}\n")
 
 #4.4.2用Pandas生成时间序列
 
+#1.基础元素Timestamp
+
 #这里列举了pd.Timestamp()的3种方式
 #给定年、月、日、时、分、秒参数值
 ts = pd.Timestamp(2019, 1, 1, 2, 3, 4)
@@ -236,4 +238,58 @@ print(f'pd.Timestamp()-2: {ts}')
 #通过时间格式的字符串转化为时间戳
 ts = pd.Timestamp("2019-1-1 2:3:4")
 print(f'pd.Timestamp()-3: {ts}')
+#转换后的类型为Timestamp
 print(f'pd.Timestamp()-type: {type(ts)}')
+
+#这里也列举了pd.to_datetime()的两种方式
+#通过datetime对象转换为时间戳
+dt = pd.to_datetime(datetime(2019, 1, 1, hour=0, minute=1, second=1))
+print(f'pd.to_datetime()-1: {dt}')
+#时间格式的字符串转换为时间戳
+dt = pd.to_datetime("2019-1-1 0:1:1")
+print(f'pd.to_datetime()-2: {dt}')
+#转换后的类型为Timestamp
+print(f'pd.to_datetime()-type: {type(dt)}')
+
+#通过列表类型的时间字符串直接转换为DatetimeIndex
+#pd.to_datetime生成自定义时间序列
+dtlist = pd.to_datetime(["2019-1-1 0:1:1", "2019-2-1 0:1:1", "2019-3-1 0:1:1"])
+print(f'pd.to_datetime()-list: {dtlist}')
+
+#2.时间偏移Timedelta
+
+#生成一个Timestamp对象dt_0
+dt_0 = pd.to_datetime(datetime(2019, 1, 1, hour=0, minute=0, second=0))
+#在dt_0上偏移一个Timedelta对象
+dt_1 = dt_0 + pd.Timedelta(days=5, minutes=50, seconds=20)
+print(f'datetime-1:{dt_0}\ndatetime-2:{dt_1}')
+
+#3.生成时间范围序列
+
+#用pd.date_range()生成时间序列
+date_rng = pd.date_range('2019-01-01', freq='M', periods=12)
+print(f'month date_range(): \n{date_rng}')
+
+#用pd.period_range()生成时间序列
+period_rng = pd.period_range('2019-01-01', freq='M', periods=12)
+print(f'month period_range(): \n{period_rng}')
+#以上两种生成时间序列方法的区别，详见书P111
+
+#pd.date_range()生成的是周日当天的时间
+date_rng = pd.date_range('2019-01-01', freq='W-SAT', periods=12)
+print(f'week date_range(): \n{date_rng}')
+
+#pd.period_range()生成的是周一到周日的时间
+period_rng = pd.period_range('2019-01-01', freq='W-SUN', periods=12)
+print(f'week period_range(): \n{period_rng}')
+#说明：经查阅日期得知，2019年1月1日是星期二，之后的第一个周日是1月6日，包含1月1日的那个星期是12月31日到1月6日。
+
+#date_range()会依照起始时间的格式连同分和秒一起显示
+date_rng = pd.date_range('2019-01-01 00:00:00', freq='H', periods=12)
+print(f'hour date_range(): \n{date_rng}')
+
+#period_range()生成的是时间序列只体现小时格式，这里连同显示了分钟，但并不会显示秒
+period_rng = pd.period_range('2019-01-01 00:00:00', freq='H', periods=12)
+print(f'hour period_range(): \n{period_rng}')
+
+#4.4.3 时间序列的降采样
