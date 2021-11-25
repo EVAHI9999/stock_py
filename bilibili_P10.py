@@ -51,6 +51,41 @@ trade_time = time(9, 30)
 while time(9) < trade_time < time(15):
     last_tick = getTick()
     print(last_tick)
+    strategy(last_tick)
     trade_time = parser.parse(last_tick[1]).time()
     sleep(3)
 print('job done.')
+
+#设计一个朴素的交易策略
+def strategy(tick, Dt, Open, High, Low, Close):
+    #买入：价格低于MA20 * 0.95
+    #卖出：价格高于MA20 * 1.05
+    #1、更新5分钟K线的ma20
+    #2、判断价格与ma20 * 0.95及ma20 * 1.05的关系，确定买或卖或通过
+    Dt = [datetime(2020, 11, 27. 14, 55),
+          datetime(2020, 11, 27. 14, 50),
+          datetime(2020, 11, 27. 14, 45)]
+    Open = [45.79, 45.66, 45.72]
+    Hign = []
+    Low = []
+    Close = []
+    
+    last_bar_start_minute = None
+    if tick[0].minute % 5 == 0 and \
+        tick[0].minute != last_bar_start_minute:
+        #创建一个新的蜡烛图
+        last_bar_start_minute = tick[0].minute
+        Open.insert(0, tick[1])
+        High.insert(0, tick[1])
+        Low.insert(0, tick[1])
+        Close.insert(0, tick[1])
+        Dt.insert(0, tick[0])
+        #计算一个新的MA20
+        ma20 = Close[:19].sum()/20
+    else:
+        #更新蜡烛图
+        High[0] = max(High[0], tick[1])
+        Low[0] = min(Low[0], tick[1])
+        Close[0] = tick[1]
+        Dt[0] = tick[0]
+    pass

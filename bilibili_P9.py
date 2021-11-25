@@ -11,8 +11,17 @@ def getTick():
     page = requests.get("http://hq.sinajs.cn/?format=text&list=sh600519")
     #转移text信息，stock_info的类型是string
     stock_info = page.text
-    #用逗号切割stock_info
+    #用逗号切割类型为string的stock_info，生成一个类型为list的mt_info
     mt_info = stock_info.split(",")
+    
+    #mt_info[0] 股票代码及名称
+    #mt_info[1] 开盘价
+    #mt_info[2] 昨天收盘价
+    #mt_info[3] 实时价
+    #mt_info[4] 最高价
+    #mt_info[5] 最低价
+    #mt_info[30] 日期
+    #mt_info[31] 时间，收盘时间为15:00:01
 
     #选取最新成交价，因为mt_info[3]的类型是string，所以需要改成float
     last = float(mt_info[3])
