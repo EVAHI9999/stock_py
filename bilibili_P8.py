@@ -1,7 +1,7 @@
 #! /usr/bin/env python3
 #-*- encoding：utf-8 -*-
 
-# ----------将str转换成datetime，使用while循环----------
+# ----------P8 7_将str转换成datetime，使用while循环----------
 
 import requests
 #第一个datetime是"包",第二个datetime是"类"，后面的time、timedelta也是类或者子类

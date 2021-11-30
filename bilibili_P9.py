@@ -2,7 +2,7 @@
 #-*- encoding：utf-8 -*-
 # http://hq.sinajs.cn/?format=text&list=sh600519
 
-# ----------设计一个简单的策略----------
+# ----------P9 8_设计一个简单的策略----------
 
 import requests
 from time import sleep
