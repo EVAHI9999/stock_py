@@ -101,3 +101,7 @@ def strategy(tick, Dt, Open, High, Low, Close, Volume):
         
     return Dt, Open, High, Low, Close, Volume
 
+
+# 本节课问题：
+# tick[0]为交易价格，tick[1]为交易时间，视频作者将tick[0]说成交易时间了
+# 
